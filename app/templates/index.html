@@ -11,4 +11,23 @@
         <p>In the meantime explore, create and enjoy our experience</p>
         <a class="btn btn-primary btn-md" href="#" role="button">Learn more</a>
     </div>
+    <div class="random-quote">
+        <div class="card">
+            <div class="card-header text-center">
+              Quote dose for you
+            </div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <h5>
+                    <q>
+                        {{ quotes.quote_message }}
+                    </q>    
+                </h5>
+                <footer class="blockquote-footer">{{ quotes.author }}</footer>
+              </blockquote>
+            </div>
+          </div>
+        
+        <p></p>
+    </div>
 {% endblock %}

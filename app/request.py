@@ -17,5 +17,5 @@ def get_random_qoutes():
         '''
         quote_message = quote_response.get('quote')
         author = quote_response.get('author')
-    random_quote = Quote(quote_message, author)
+    random_quote = Quote(author, quote_message)
     return random_quote
