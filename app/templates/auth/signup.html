@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+
+{% block app_content %}
+    <div class="row">
+        <div class="col-md-3">
+            <!-- empty div -->
+        </div>
+        <div class="col-md-6">
+            {{ wtf.quickform(form) }}
+        </div>
+        <div class="col-md-2">
+            <!-- empty div -->
+        </div>
+    </div>
+{% endblock %}

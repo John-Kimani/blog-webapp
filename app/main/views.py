@@ -1,7 +1,7 @@
 from flask import render_template, redirect,url_for
 from app.main import main
 from app.request import get_random_qoutes
-from app.main.forms import LoginForm
+from app.main.forms import LoginForm, RegisterForm
 
 
 
@@ -24,3 +24,14 @@ def login():
     form = LoginForm()
     title = 'LogIn'
     return render_template('auth/login.html', title=title, form=form)
+
+
+@main.route('/signup')
+def sigup():
+    '''
+    View function that handles user registration
+    '''
+    form = RegisterForm()
+    title = 'Register'
+    return render_template('auth/signup.html', title=title, form=form)
+    
