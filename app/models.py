@@ -1,6 +1,6 @@
 from datetime import datetime
-from email.policy import default
 from . import db
+from werkzeug.security import generate_password_hash,check_password_hash
 
 
 
@@ -27,6 +27,26 @@ class Admin(db.Model):
     email = db.Column(db.String(120))
     password_hash = db.Column(db.String(128))
     blogs = db.relationship('Blog', backref='writter', lazy='dynamic')
+
+
+    @property
+    def password(self):
+        raise AttributeError('You cannot read password attribute')
+
+    @password.setter
+    def password(self, password):
+        '''
+        Function that generates password hash
+        '''
+        self.password_hash = generate_password_hash(password)
+
+    def verify_password(self, password):
+        '''
+        Method that verifies password
+        '''
+        return check_password_hash(self.password_hash, password)
+
+
 
     def __repr__(self):
         return f'Admin {self.username}'
