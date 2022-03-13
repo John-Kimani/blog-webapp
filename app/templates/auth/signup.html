@@ -3,14 +3,34 @@
 
 
 {% block app_content %}
+    <h2 class="text-center">Register</h2>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <!-- empty div -->
         </div>
         <div class="col-md-6">
-            {{ wtf.quickform(form) }}
+            <form action="">
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.email.label }} <br>
+                    {{ form.email(size=38) }}
+                </p>
+                <p>
+                    {{ form.username.label }} <br>
+                    {{ form.username(size=38)}}
+                </p>
+                <p>
+                    {{ form.password.label }} <br>
+                    {{ form.password(size=38) }}
+                </p>
+                <p>
+                    {{ form.confirm_password.label }} <br>
+                    {{ form.confirm_password(size=38) }}
+                </p>
+                <p> {{ form.submit() }}</p>
+            </form>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <!-- empty div -->
         </div>
     </div>
