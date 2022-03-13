@@ -1,3 +1,4 @@
+from datetime import datetime
 from . import db
 
 
@@ -24,6 +25,20 @@ class Admin(db.Model):
     username = db.Column(db.String(255))
     email = db.Column(db.String(120))
     password_hash = db.Column(db.String(128))
+    blogs = db.relationship('Post', backref='writter', lazy='dynamic')
 
     def __repr__(self):
         return f'Admin {self.username}'
+
+class Blog(db.Model):
+    '''
+    class that instanciates blog posts
+    '''
+    __tablename__ = 'Blogs'
+    id = db.Column(db.Integer, primary_key = True)
+    blog_post = db.Column(db.String(140))
+    admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
+    timestamp = db.Column(db.DateTime, index = True, default=datetime.utcnow)
+    
+    def __repr__(self):
+        return f'Blog {self.blog_post}'
