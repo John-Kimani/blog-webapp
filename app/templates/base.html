@@ -13,7 +13,16 @@
     {% endif %}
 {% endblock %}
 
+
+
 {% block navbar %}
-    {% include 'navbar.html' %}
+{% include 'navbar.html' %}
 {% end block %}
+
+<body class="container">
+    {% block app_context %}
+         <!-- templates rendered here -->
+    {% endblock %}
+</body>
+
 
