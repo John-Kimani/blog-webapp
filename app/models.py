@@ -1,4 +1,5 @@
 from datetime import datetime
+from email.policy import default
 from . import db
 
 
@@ -42,3 +43,31 @@ class Blog(db.Model):
     
     def __repr__(self):
         return f'Blog {self.blog_post}'
+
+class User(db.Model):
+    '''
+    Class that instanctiates users interactions
+    '''
+    __tablename__ = 'Users'
+    id = db.Column(db.Integer, primary_key = True)
+    username = db.Column(db.String(255), index=True)
+    comments = db.relationship('Comment', backref='writter', lazy=True)
+    blogs = db.relationship('Blog', backref='writter', lazy='dynamic')
+
+    def __repr__(self):
+        return f'User {self.username}'
+
+
+class Comment(db.Model):
+    '''
+    Class that instanciates comments made by users
+    '''
+    __tablename__ = 'Comments'
+    id = db.Column(db.Integer, primary_key = True)
+    comment = db.Column(db.Text())
+    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
+    users_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    date = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f'Comment {self.comment}'
