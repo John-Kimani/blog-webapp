@@ -25,7 +25,7 @@ class Admin(db.Model):
     username = db.Column(db.String(255))
     email = db.Column(db.String(120))
     password_hash = db.Column(db.String(128))
-    blogs = db.relationship('Post', backref='writter', lazy='dynamic')
+    blogs = db.relationship('Blog', backref='writter', lazy='dynamic')
 
     def __repr__(self):
         return f'Admin {self.username}'
