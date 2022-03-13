@@ -1,6 +1,7 @@
 from datetime import datetime
 from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
+from flask_login import UserMixin
 
 
 
@@ -55,7 +56,7 @@ class Blog(db.Model):
     '''
     class that instanciates blog posts
     '''
-    __tablename__ = 'Blogs'
+    __tablename__ = 'blogs'
     id = db.Column(db.Integer, primary_key = True)
     blog_post = db.Column(db.String(140))
     admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
@@ -64,14 +65,15 @@ class Blog(db.Model):
     def __repr__(self):
         return f'Blog {self.blog_post}'
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     '''
     Class that instanctiates users interactions
     '''
-    __tablename__ = 'Users'
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(255), index=True)
-    comments = db.relationship('Comment', backref='writter', lazy=True)
+    email = db.Column(db.String(255), unique = True, index = True)
+    comments = db.relationship('Comment', backref='user', lazy=True)
     blogs = db.relationship('Blog', backref='writter', lazy='dynamic')
 
     def __repr__(self):
