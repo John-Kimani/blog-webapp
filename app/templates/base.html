@@ -1,0 +1,19 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css')}}">
+{% endblock %}
+
+{% block title %}
+    {% if title %}
+        {{ title }} - Blog App
+    {% else %}
+        Welcome to Blog App 
+    {% endif %}
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% end block %}
+
