@@ -21,7 +21,7 @@ def index():
 
 
 
-@main.route('/createblog', methods=['GET','POST'])
+@main.route('/blog', methods=['GET','POST'])
 def createblog():
     '''
     View function that sets blog page
