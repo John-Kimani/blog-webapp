@@ -1,4 +1,4 @@
-from flask import flash, render_template, redirect,url_for
+from flask import flash, render_template, redirect,url_for,request
 from flask_login import login_user,logout_user, current_user
 from app.auth import auth
 from app.auth.forms import LoginForm, RegisterForm
@@ -51,14 +51,15 @@ def signup():
     form = RegisterForm()
     if form.validate_on_submit():
         print('start')
-        admin = Admin.query.filter_by(username=form.username.data).first()
-        admin.set_password(form.password.data)
+        admin = Admin(username=form.username.data, email=form.email.data, password_hash=form.password.data)
         db.session.add(admin)
         db.session.commit()
         flash('Welcome a board')
         return redirect('index.html')
     else: 
+        print(form.data)
         print('Not working yet')
+    print(request.method)
     return render_template('auth/signup.html', title=title, form=form)
 
 
