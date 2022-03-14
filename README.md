@@ -3,7 +3,7 @@
 This application enables user/(s) to view, random quotes, blog posts and are able to leave their comment/(s) on blog posts.
 
 # App screenshot
-![Blog-WebApp]()
+![Blog-WebApp](/app/static/images/blogwebapp.png)
 ## Installation
 
 Guide to install Horizon News application:
