@@ -5,6 +5,7 @@ from app.models import Blog
 from app.request import get_random_qoutes
 from app.main.forms import BlogForm
 from app import db
+from flask_login import login_required
 
 
 
@@ -22,6 +23,7 @@ def index():
 
 
 @main.route('/blog', methods=['GET','POST'])
+@login_required
 def createblog():
     '''
     View function that sets blog page
@@ -29,11 +31,11 @@ def createblog():
     title = 'Create blog'
     form = BlogForm()
     if form.validate_on_submit():
-        blog = Blog(blog_post=form.blog_post.data, blog_title=form.blog_title.data)
+        blog = Blog(blog_title=form.blog_title.data, blog_post=form.blog_post.data,)
         db.session.add(blog)
         db.session.commit()
         flash('Blog has been created')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.blog'))
     blog = Blog(blog_post=form.blog_post.data, blog_title=form.blog_title.data)
     return render_template('blog.html', title=title, form=form, blog=blog)
 

@@ -9,17 +9,22 @@
             <!-- empty div -->
         </div>
         <div class="col-md-6">
-            <form action="">
+            <form action="" method="POST">
                 {{ form.hidden_tag() }}
                 <!-- security feature for flask forms -->
                 <p>
                     {{ form.username.label }} <br>
                     {{ form.username(size=38) }}
+                    {{ form.username.errors}}
                 </p>
                 <p>
                     {{ form.password.label }} <br>
                     {{ form.password(size=38) }}
+                    {{ form.password.errors }}
                 </p>
+                {% for error in form.password.errors  %}
+                <p class='text-danger'>{{error}}</p>
+                {% endfor %}
                 <p>
                     {{ form.remember_me() }}
                     {{ form.remember_me.label }}
