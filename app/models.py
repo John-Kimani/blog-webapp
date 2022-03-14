@@ -1,5 +1,5 @@
 from datetime import datetime
-from . import db
+from app import db, login
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 
@@ -14,10 +14,15 @@ class Quote:
         self.author = author 
         self.quote_message = quote_message 
 
+@login.user_loader
+def load_user(id):
+    '''
+    Function that handles logged in user in each admin session
+    '''
+    return Admin.query.get(int(id))
 
 
-
-class Admin(db.Model):
+class Admin(UserMixin,db.Model):
     '''
     Class that defines admin/writer priviledge
     Args: base class for all models from flask-sqlalchemy
@@ -29,28 +34,24 @@ class Admin(db.Model):
     password_hash = db.Column(db.String(128))
     blogs = db.relationship('Blog', backref='writter', lazy='dynamic')
 
-
-    @property
-    def password(self):
-        raise AttributeError('You cannot read password attribute')
-
-    @password.setter
-    def password(self, password):
+    def __repr__(self):
         '''
-        Function that generates password hash
+        Funtion that print out admins infomation
+        '''
+        return '<Admin {}>'.format(self.username)
+
+    def set_password(self, password):
+        '''
+        Function that sets password
         '''
         self.password_hash = generate_password_hash(password)
 
-    def verify_password(self, password):
+
+    def check_password(self, password):
         '''
-        Method that verifies password
+        Function to check the admnis password 
         '''
         return check_password_hash(self.password_hash, password)
-
-
-
-    def __repr__(self):
-        return f'Admin {self.username}'
 
 class Blog(db.Model):
     '''
@@ -65,7 +66,7 @@ class Blog(db.Model):
     def __repr__(self):
         return f'Blog {self.blog_post}'
 
-class User(UserMixin, db.Model):
+class User(db.Model):
     '''
     Class that instanctiates users interactions
     '''
@@ -74,7 +75,6 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(255), index=True)
     email = db.Column(db.String(255), unique = True, index = True)
     comments = db.relationship('Comment', backref='user', lazy=True)
-    blogs = db.relationship('Blog', backref='writter', lazy='dynamic')
 
     def __repr__(self):
         return f'User {self.username}'
@@ -87,7 +87,6 @@ class Comment(db.Model):
     __tablename__ = 'Comments'
     id = db.Column(db.Integer, primary_key = True)
     comment = db.Column(db.Text())
-    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
     users_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     date = db.Column(db.DateTime, default=datetime.utcnow)
 

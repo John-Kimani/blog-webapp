@@ -4,7 +4,7 @@ from app.auth import auth
 from app.auth.forms import LoginForm, RegisterForm
 from app import db
 
-from app.models import User
+from app.models import Admin
 
 
 
@@ -21,8 +21,8 @@ def login():
     form = LoginForm()
     title = 'LogIn'
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
+        admin = Admin.query.filter_by(username=form.username.data).first()
+        if admin is None or not admin.check_password(form.password.data):
             '''
             Condition to handle invalid user input
             Returns:
@@ -31,13 +31,13 @@ def login():
             '''
             flash('Invalid username or password')
             return redirect( url_for('auth.login'))
-        login_user(user, remember=form.remember_me.data)
+        login_user(admin, remember=form.remember_me.data)
         flash('You are logged in successfully')
         return redirect(url_for('main.index'))
     return render_template('auth/login.html', title=title, form=form)
 
 
-@auth.route('/signup')
+@auth.route('/signup', methods=['GET', 'POST'])
 def signup():
     '''
     View function that handles user registration
@@ -46,19 +46,19 @@ def signup():
         '''
         logic that validates user session
         '''
-        return redirect(url_for('main.index'))
+        return redirect(url_for('index'))
+    title = 'Register'
     form = RegisterForm()
     if form.validate_on_submit():
-        user = User(username= form.username.data, email=form.email.data, password_hash=form.password.data)
-        '''
-        condition that creates a new user and adds user to db
-        '''
-        user.set_password(form.password.data) #handles password hashing
-        db.session.add(user)
+        print('start')
+        admin = Admin.query.filter_by(username=form.username.data).first()
+        admin.set_password(form.password.data)
+        db.session.add(admin)
         db.session.commit()
-        flash('Congratulations you are now part of our commmunity')
-        return redirect('auth.login')
-    title = 'Register'
+        flash('Welcome a board')
+        return redirect('index.html')
+    else: 
+        print('Not working yet')
     return render_template('auth/signup.html', title=title, form=form)
 
 
