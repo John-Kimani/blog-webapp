@@ -57,7 +57,6 @@ class Blog(db.Model):
     '''
     class that instanciates blog posts
     '''
-    __tablename__ = 'blogs'
     id = db.Column(db.Integer, primary_key = True)
     blog_title = db.Column(db.String(25))
     blog_post = db.Column(db.String(300))
