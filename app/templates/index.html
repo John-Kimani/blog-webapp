@@ -60,4 +60,20 @@
         <!-- blogpost -->
       </div>
     </div>
+    <div class="row blog">
+      <div class="col-md-12">
+        {% for blog in blogs %}
+        <div class="card mt-3">
+          <div class="card-header text-center">
+            {{ blog.blog_title}}
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>{{ blog.blog_post}}</p>
+            </blockquote>
+          </div>
+      </div>
+        {% endfor %}
+      </div>
+    </div>
 {% endblock %}
