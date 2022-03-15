@@ -36,7 +36,7 @@ def createblog():
         db.session.commit()
         flash('Blog has been created')
         return redirect(url_for('main.createblog'))
-    all_blogs = Blog.query.order_by(Blog.timestamp.desc())
+    all_blogs = Blog.query.all()
     return render_template('blog.html', title=title, form=form, all_blogs=all_blogs)
 
 
