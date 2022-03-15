@@ -6,7 +6,8 @@
     <div class="blog">
         <div class="row">
             <div class="col-md-8">
-                <div class="card">
+                {% for blog in blogs %}
+                <div class="card mt-3">
                     <div class="card-header text-center">
                       {{ blog.blog_title}}
                     </div>
@@ -15,7 +16,8 @@
                         <p>{{ blog.blog_post}}</p>
                       </blockquote>
                     </div>
-                  </div>
+                </div>
+                {% endfor %}
             </div>
             <div class="col-md-4">
                 <form action="" method='POST'>

@@ -60,7 +60,7 @@ class Blog(db.Model):
     __tablename__ = 'blogs'
     id = db.Column(db.Integer, primary_key = True)
     blog_title = db.Column(db.String(25))
-    blog_post = db.Column(db.String(140))
+    blog_post = db.Column(db.String(300))
     admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
     timestamp = db.Column(db.DateTime, index = True, default=datetime.utcnow)
     

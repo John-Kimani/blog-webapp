@@ -35,9 +35,9 @@ def createblog():
         db.session.add(blog)
         db.session.commit()
         flash('Blog has been created')
-        return redirect(url_for('main.blog'))
-    blog = Blog(blog_post=form.blog_post.data, blog_title=form.blog_title.data)
-    return render_template('blog.html', title=title, form=form, blog=blog)
+        return redirect(url_for('main.createblog'))
+    blogs = Blog.query.order_by(Blog.timestamp.desc())
+    return render_template('blog.html', title=title, form=form, blogs=blogs)
 
 
     
