@@ -17,11 +17,12 @@ def login():
         '''
         Redirects logged in user to home page
         '''
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.createblog'))
     form = LoginForm()
     title = 'LogIn'
     if form.validate_on_submit():
         admin = Admin.query.filter_by(username=form.username.data).first()
+        print(admin)
         if admin is None or not admin.check_password(form.password.data):
             '''
             Condition to handle invalid user input
@@ -33,7 +34,7 @@ def login():
             return redirect( url_for('auth.login'))
         login_user(admin, remember=form.remember_me.data)
         flash('You are logged in successfully')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.createblog'))
     return render_template('auth/login.html', title=title, form=form)
 
 
@@ -51,11 +52,12 @@ def signup():
     form = RegisterForm()
     if form.validate_on_submit():
         print('start')
-        admin = Admin(username=form.username.data, email=form.email.data, password_hash=form.password.data)
+        admin = Admin(username=form.username.data, email=form.email.data)
+        admin.set_password(form.password.data)
         db.session.add(admin)
         db.session.commit()
         flash('Welcome a board')
-        return redirect('index.html')
+        return redirect(url_for('main.createblog'))
     else: 
         print(form.data)
         print('Not working yet')

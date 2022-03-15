@@ -6,7 +6,7 @@ This application enables user/(s) to view, random quotes, blog posts and are abl
 ![Blog-WebApp](/app/static/images/blogwebapp.png)
 ## Installation
 
-Guide to install Horizon News application:
+Guide to install Blog APP application:
 
 ### Clone this repository
 ```bash
