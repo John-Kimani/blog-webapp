@@ -15,6 +15,7 @@
                       <blockquote class="blockquote mb-0">
                         <p>{{ blog.blog_post}}</p>
                       </blockquote>
+                      <p><a href="{{ url_for('main.delete_blog_post', id=blog.id)}}">Delete</a></p>
                     </div>
                 </div>
                 {% endfor %}
@@ -25,12 +26,12 @@
                     <p>
                         {{ form.blog_title.label }} <br>
                         {{ form.blog_title(size=30) }}
-                        {{ form.blog_title.errors}}
+                        <!-- {{ form.blog_title.errors}} -->
                     </p>
                     <p>
                         {{ form.blog_post.label }} <br>
                         {{ form.blog_post(size=30)}}
-                        {{ form.blog_post.errors }}
+                        <!-- {{ form.blog_post.errors }} -->
                     </p>
                     <p> {{ form.submit() }}</p>
                 </form>

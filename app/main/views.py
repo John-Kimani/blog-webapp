@@ -40,4 +40,13 @@ def createblog():
     return render_template('blog.html', title=title, form=form, blogs=blogs)
 
 
-    
+@main.route('/blog/delete/<int:id>')
+def delete_blog_post(id):
+    '''
+    Function to delete blog post
+    '''
+    blog = Blog.query.filter_by(id=id).first()
+    db.session.delete(blog)
+    db.session.commit()
+    flash(f'Blog {id} deleted')
+    return redirect(url_for('main.createblog'))
