@@ -17,7 +17,7 @@ def index():
     '''
     title = 'Home'
     random_quote = get_random_qoutes()
-    blogs = Blog.query.order_by(Blog.timestamp.desc()).all()
+    blogs = Blog.query.all()
     return render_template('index.html', title=title, quotes=random_quote, blogs=blogs)
 
 
