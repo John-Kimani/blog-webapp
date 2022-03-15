@@ -36,8 +36,8 @@ def createblog():
         db.session.commit()
         flash('Blog has been created')
         return redirect(url_for('main.createblog'))
-    blogs = Blog.query.order_by(Blog.timestamp.desc())
-    return render_template('blog.html', title=title, form=form, blogs=blogs)
+    all_blogs = Blog.query.order_by(Blog.timestamp.desc())
+    return render_template('blog.html', title=title, form=form, all_blogs=all_blogs)
 
 
 @main.route('/blog/delete/<int:id>')
