@@ -32,7 +32,6 @@ class Admin(UserMixin,db.Model):
     username = db.Column(db.String(255))
     email = db.Column(db.String(120))
     password_hash = db.Column(db.String(128))
-    blogs = db.relationship('Blog', backref='writter', lazy='dynamic')
 
     def __repr__(self):
         '''
@@ -60,7 +59,6 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     blog_title = db.Column(db.String(25))
     blog_post = db.Column(db.String(300))
-    admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
     timestamp = db.Column(db.DateTime, index = True, default=datetime.utcnow)
     
     def __repr__(self):

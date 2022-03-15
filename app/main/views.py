@@ -17,7 +17,7 @@ def index():
     '''
     title = 'Home'
     random_quote = get_random_qoutes()
-    blogs = Blog.query.all()
+    blogs = Blog.query.order_by(Blog.timestamp.desc()).all()
     return render_template('index.html', title=title, quotes=random_quote, blogs=blogs)
 
 
@@ -36,7 +36,7 @@ def createblog():
         db.session.commit()
         flash('Blog has been created')
         return redirect(url_for('main.createblog'))
-    all_blogs = Blog.query.all()
+    all_blogs = Blog.query.order_by(Blog.timestamp.desc())
     return render_template('blog.html', title=title, form=form, all_blogs=all_blogs)
 
 
