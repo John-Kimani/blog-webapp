@@ -71,4 +71,4 @@ def logout():
     View function that handles log out
     '''
     logout_user()
-    return redirect(url_for('main.index'))
+    return redirect(url_for('auth.login'))

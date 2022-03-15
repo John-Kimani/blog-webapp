@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+
+{% block app_content %}
+    <div class="row">
+        <div class="col-md-4">
+            <!-- empty -->
+        </div>
+        <div class="col-md-6">
+            <form action="" method="POST">
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.username.label }} <br>
+                    {{ form.username(size=30) }}
+                </p>
+                <p>
+                    {{ form.email.label }} <br>
+                    {{ form.email(size=30)}}
+                </p>
+                <button class="btn mt-2 btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <!-- empty -->
+        </div>
+    </div>
+{% endblock %}

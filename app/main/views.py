@@ -1,9 +1,9 @@
 
 from flask import flash, render_template, redirect,url_for
 from app.main import main
-from app.models import Blog
+from app.models import Blog, User
 from app.request import get_random_qoutes
-from app.main.forms import BlogForm
+from app.main.forms import BlogForm, SubscribeForm
 from app import db
 from flask_login import login_required
 
@@ -50,3 +50,17 @@ def delete_blog_post(id):
     db.session.commit()
     flash(f'Blog {id} deleted')
     return redirect(url_for('main.createblog'))
+
+@main.route('/subscribe', methods=['GET', 'POST'])
+def subscribe():
+    '''
+    Function to subscribe users
+    '''
+    form = SubscribeForm()
+    if form.validate_on_submit():
+        user = User(email=form.email.data, username=form.username.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('You have been added to our newsletter email list')
+        return redirect(url_for('main.subscribe'))
+    return render_template('subscribe.html', form=form )
